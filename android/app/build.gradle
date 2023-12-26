@@ -2,6 +2,19 @@ apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
+project.ext.envConfigFiles = [
+   productiondebug: ".env.production",
+   productionrelease: ".env.production",
+   developmentrelease: ".env.development",
+   developmentdebug: ".env.development",
+   stagingrelease: ".env.staging",
+   stagingdebug: ".env.staging"
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
+import com.android.build.OutputFile
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -74,6 +87,34 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
+    flavorDimensions "default"
+    productFlavors {
+        production {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "env.production"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "build_config_package", "com.env_setup"
+        }
+        staging {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "env.staging"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "build_config_package", "com.env_setup"
+        }
+        development {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "env.development"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "build_config_package", "com.env_setup"
+        }
+    }
+
     namespace "com.env_setup"
     defaultConfig {
         applicationId "com.env_setup"
@@ -93,6 +134,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug', 'release']
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
