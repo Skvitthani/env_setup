@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "android:staging": "react-native run-android --mode=stagingdebug --appId env.staging",
-    "android:dev": "react-native run-android --mode=developmentdebug --appId env.development",
-    "android:prod": "react-native run-android --mode=productiondebug --appId env.production",
+    "android:dev": "react-native run-android --mode=devdebug --appId env.dev",
+    "android:live": "react-native run-android --mode=livedebug --appId env.live",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",

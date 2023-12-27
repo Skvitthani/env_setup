@@ -3,12 +3,10 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 project.ext.envConfigFiles = [
-   productiondebug: ".env.production",
-   productionrelease: ".env.production",
-   developmentrelease: ".env.development",
-   developmentdebug: ".env.development",
-   stagingrelease: ".env.staging",
-   stagingdebug: ".env.staging"
+   livedebug: ".env.live",
+   liverelease: ".env.live",
+   devrelease: ".env.dev",
+   devdebug: ".env.dev",
 ]
 
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
@@ -89,25 +87,17 @@ android {
 
     flavorDimensions "default"
     productFlavors {
-        production {
+        live {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "env.production"
+            applicationId "env.live"
             targetSdkVersion rootProject.ext.targetSdkVersion
             versionCode 1
             versionName "1.0"
             resValue "string", "build_config_package", "com.env_setup"
         }
-        staging {
+        dev {
             minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "env.staging"
-            targetSdkVersion rootProject.ext.targetSdkVersion
-            versionCode 1
-            versionName "1.0"
-            resValue "string", "build_config_package", "com.env_setup"
-        }
-        development {
-            minSdkVersion rootProject.ext.minSdkVersion
-            applicationId "env.development"
+            applicationId "env.dev"
             targetSdkVersion rootProject.ext.targetSdkVersion
             versionCode 1
             versionName "1.0"
